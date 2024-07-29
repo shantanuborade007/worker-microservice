@@ -5,6 +5,7 @@ import { WorkerService } from './worker.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Job } from './entity/job.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+const rabbitMqUrl = process.env.RABBITMQ_URL || 'amqp://localhost:5672';
 
 @Module({
   imports :[
@@ -14,7 +15,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'WORKER_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://localhost:5672'],
+          urls: [rabbitMqUrl],
           queue: 'worker-queue',
         },
       },

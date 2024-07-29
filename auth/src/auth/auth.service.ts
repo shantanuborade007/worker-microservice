@@ -19,13 +19,16 @@ import {HttpService } from "@nestjs/axios";
 @Injectable()
 export class AuthService {
 
+  private readonly apiUrl: string;
 
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly httpService : HttpService
 
-  ) {}
+  ) {
+    this.apiUrl = process.env.WORKER_URL || 'http://localhost:3001'; 
+  }
 
   
 
@@ -77,14 +80,15 @@ async createJob(result:{content:string,md5:string}, status: string, user: any) {
     
       const content = result.content
       const md5 = result.md5
-      console.log('hello safe till here')
+      console.log('hello safeeeeeeee till here',this.apiUrl)
       const createJobDto = {content,md5,status,user}
-    
-      const config : AxiosRequestConfig = {
-        url:"http://localhost:3001/job",
-        method:"POST",
-        data:createJobDto
-      }
+
+      console.log(this.apiUrl)
+      const config: AxiosRequestConfig = {
+        url: `${this.apiUrl}/job`,
+        method: 'POST',
+        data: createJobDto,
+      };
 
         const response = await this.httpService.axiosRef.request(config)
         const id = response.data.id;
@@ -116,7 +120,7 @@ async processImage(file: Express.Multer.File): Promise<{ content: string; md5: s
 
 async getJobById(id:string){
   const config : AxiosRequestConfig = {
-    url:`http://localhost:3001/job/${id}`,
+    url:`${this.apiUrl}/job/${id}`,
     method:"GET"
   }
   const response = await this.httpService.axiosRef.request(config)
@@ -127,7 +131,7 @@ async getJobById(id:string){
 
 async getJobStatus(id:string){
   const config : AxiosRequestConfig = {
-    url:`http://localhost:3001/job/status/${id}`,
+    url:`${this.apiUrl}/job/status/${id}`,
     method:"GET"
   }
   const response = await this.httpService.axiosRef.request(config)
@@ -136,7 +140,7 @@ async getJobStatus(id:string){
 
 async getAllJobs(){
   const config : AxiosRequestConfig = {
-    url:`http://localhost:3001/job`,
+    url:`${this.apiUrl}/job`,
     method:"GET"
   }
   const response = await this.httpService.axiosRef.request(config)

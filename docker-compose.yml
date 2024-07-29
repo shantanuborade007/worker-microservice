@@ -2,34 +2,32 @@ version: '3.8'
 
 services:
   auth:
-    build: 
+    build:
       context: ./auth
       dockerfile: Dockerfile
       target: development
     command: npm run start:dev
-    volumes:
-      - ./auth:/app
-      - /app/node_modules
+    environment:
+      - WORKER_URL=http://worker1:3001 # Update this to the correct URL and port
     ports:
       - '3000:3000'
     networks:
       - app-network
 
   worker1:
-    build: 
+    build:
       context: ./worker1
       dockerfile: Dockerfile
       target: development
     command: npm run start:dev
-    volumes:
-      - ./worker1:/app
-      - /app/node_modules
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
     ports:
       - '3001:3001'
     networks:
       - app-network
 
-  app:
+  blob:
     build:
       context: ./blob
       dockerfile: Dockerfile

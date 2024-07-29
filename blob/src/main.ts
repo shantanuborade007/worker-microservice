@@ -3,14 +3,15 @@ import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  // const app = await NestFactory.create(AppModule);
-  // await app.listen(3002);
+  const rabbitMQUrl = process.env.RABBITMQ_URL || 'amqp://localhost:5672';
+  console.log(`Connecting to RabbitMQ at ${rabbitMQUrl}`);
+  
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://localhost:5672'],
+        urls: [rabbitMQUrl],
         queue: 'worker-queue',
       },
     },

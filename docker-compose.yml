@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  auth:
+    build: 
+      context: ./auth
+      dockerfile: Dockerfile
+      target: development
+    command: npm run start:dev
+    volumes:
+      - ./auth:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    networks:
+      - app-network
+
+  worker1:
+    build: 
+      context: ./worker1
+      dockerfile: Dockerfile
+      target: development
+    command: npm run start:dev
+    volumes:
+      - ./worker1:/app
+      - /app/node_modules
+    ports:
+      - '3001:3001'
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: ./blob
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5673:5672"
+      - "15672:15672" # RabbitMQ management UI
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -16,8 +16,8 @@ export class Job {
   status: string;
 
   @Column()
-  tenetId: string;  // Corrected typo from 'tenetId' to 'tenantId'
-
+  tenetId: string;  
+  
   @Column()
   clientId: string;
 }

@@ -9,6 +9,11 @@ services:
     command: npm run start:dev
     environment:
       - WORKER_URL=http://worker1:3001 # Update this to the correct URL and port
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=farm
     ports:
       - '3000:3000'
     networks:
@@ -22,6 +27,11 @@ services:
     command: npm run start:dev
     environment:
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=farm
     ports:
       - '3001:3001'
     networks:
@@ -35,6 +45,11 @@ services:
       - rabbitmq
     environment:
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=farm
     networks:
       - app-network
 
@@ -43,6 +58,32 @@ services:
     ports:
       - "5673:5672"
       - "15672:15672" # RabbitMQ management UI
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: farm
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  liquibase:
+    build:
+      context: ./liquibase
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=farm
+    depends_on:
+      - postgres
     networks:
       - app-network
 

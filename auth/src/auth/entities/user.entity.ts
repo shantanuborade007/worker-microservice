@@ -1,9 +1,9 @@
-import { Entity, ObjectIdColumn, Column, ObjectId } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class User {
-  @ObjectIdColumn()
-  id: ObjectId;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
@@ -29,6 +29,7 @@ export class User {
   @Column()
   appId: string;
 
-  @Column()
+  @Column("text", { array: true })
   jobs: string[];
+
 }

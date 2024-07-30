@@ -11,10 +11,14 @@ import { User } from './auth/entities/user.entity';
   imports: [
     AuthModule,
     TypeOrmModule.forRoot({
-      type: 'mongodb',
-      url: 'mongodb+srv://user01:user01@cluster0.enjinep.mongodb.net/farm',
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST || 'localhost',
+      port: parseInt(process.env.POSTGRES_PORT, 10) || 5433,
+      username: process.env.POSTGRES_USER || 'postgres',
+      password: process.env.POSTGRES_PASSWORD || 'root',
+      database: process.env.POSTGRES_DB || 'farm',
       entities: [User],
-      synchronize: true,
+      synchronize: true, // Set to false in production
     }),
     TypeOrmModule.forFeature([User]),
   ],

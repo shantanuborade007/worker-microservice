@@ -1,18 +1,17 @@
 /* eslint-disable prettier/prettier */
-import {ObjectIdColumn, Column, ObjectId, Entity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Blob {
-    @ObjectIdColumn()
-    id: ObjectId;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
-    encoding:string;
+    encoding: string;
 
     @Column()
-    md5:string;
+    md5: string;
 
     @Column()
-    content:string
-
+    content: string;
 }

@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Entity, ObjectIdColumn, Column, ObjectId } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Job {
-  @ObjectIdColumn()
-  id: ObjectId;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   imgURL: string;
@@ -16,7 +16,7 @@ export class Job {
   status: string;
 
   @Column()
-  tenetId: string;
+  tenetId: string;  // Corrected typo from 'tenetId' to 'tenantId'
 
   @Column()
   clientId: string;

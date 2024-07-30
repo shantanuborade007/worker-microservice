@@ -64,13 +64,13 @@ export class WorkerService {
     }
 
     async getJobById(id:string):Promise<Job>{
-        const newId = new ObjectId(id)
-        return await this.jobRepository.findOne(newId);
+        const newId = id
+        return await this.jobRepository.findOne({where:{id:newId}});
     }
 
     async getJobStatus(id:string){
-        const newId = new ObjectId(id)
-        const job = await this.jobRepository.findOne(newId);
+        const newId = id
+        const job = await this.jobRepository.findOne({where:{id:newId}});
         return job.status
     }
 

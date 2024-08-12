@@ -29,7 +29,6 @@ export class User {
   @Column()
   appId: string;
 
-  @Column("text", { array: true })
+  @Column('text', { array: true })
   jobs: string[];
-
 }

@@ -12,7 +12,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const token = request.cookies.jwt;
     console.log(token)
     if (!token) {
-        console.log("here error")
+        console.log("JwtAuthGuard: token not available in request.")
       throw new UnauthorizedException('User not logged in, please login to access this API');
     }
     

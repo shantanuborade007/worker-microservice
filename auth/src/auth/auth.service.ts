@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {Injectable, Logger, NotFoundException} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -20,6 +20,7 @@ import {HttpService } from "@nestjs/axios";
 export class AuthService {
 
   private readonly apiUrl: string;
+  private logger:Logger = new Logger('AuthService');
 
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
@@ -33,31 +34,36 @@ export class AuthService {
   
 
   async signup(signupDto: SignupDto): Promise<User> {
-    const { name, email, password, role, tenetId, clientId, audience, appId } =
-      signupDto;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = this.userRepository.create({
-      name,
-      email,
-      password: hashedPassword,
-      role,
-      tenetId,
-      clientId,
-      audience,
-      appId,
-      jobs: [],
-    });
-    return this.userRepository.save(newUser);
+      try{
+            const { name, email, password, role, tenetId, clientId, audience, appId } =
+                signupDto;
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            const newUser = await this.userRepository.create({
+              name,
+              email,
+              password: hashedPassword,
+              role,
+              tenetId,
+              clientId,
+              audience,
+              appId,
+              jobs: [],
+            });
+           const savedUser = await this.userRepository.save(newUser);
+          this.logger.log('user creation successfully.');
+
+        return savedUser;
+    }catch(error){
+      this.logger.error(error);
+    }
+
   }
 
   async validateUser(loginDto: LoginDto): Promise<User> {
     // const user = await this.userRepository.findOne({ where: { loginDet } });
     const email = loginDto.email;
-
-   
     const user = await this.userRepository.findOne({ where: { email } });
- 
     if (user && (await bcrypt.compare(loginDto.password, user.password))) {
       return user;
     }
@@ -78,14 +84,11 @@ export class AuthService {
   }
 async createJob(result:{content:string,md5:string}, status: string, user: any) {
   try {
-    
+
       const content = result.content
       const md5 = result.md5
-      console.log('hello safeeeeeeee till here',this.apiUrl)
       const createJobDto = {content,md5,status,user}
-
-      console.log(this.apiUrl)
-      const config: AxiosRequestConfig = {
+        const config: AxiosRequestConfig = {
         url: `${this.apiUrl}/job`,
         method: 'POST',
         data: createJobDto,
@@ -95,10 +98,10 @@ async createJob(result:{content:string,md5:string}, status: string, user: any) {
         const id = response.data.id;
         user.jobs.push(id);
         await this.userRepository.save(user);
-
+        this.logger.log('Job created successfully.');
         return response.data;
   } catch (error) {
-    console.error('Error creating job:', error.response ? error.response.data : error.message);
+    this.logger.error('Error creating job:',error.response ? error.response.data : error.message)
     throw new Error('Failed to create job');
   }
 }
@@ -106,6 +109,7 @@ async createJob(result:{content:string,md5:string}, status: string, user: any) {
 
 async processImage(file: Express.Multer.File): Promise<{ content: string; md5: string }> {
   if (!file) {
+    this.logger.error('File not found');
     throw new NotFoundException('No image file uploaded');
   }
 
@@ -120,33 +124,46 @@ async processImage(file: Express.Multer.File): Promise<{ content: string; md5: s
 }
 
 async getJobById(id:string){
-  const config : AxiosRequestConfig = {
-    url:`${this.apiUrl}/job/${id}`,
-    method:"GET"
-  }
-  const response = await this.httpService.axiosRef.request(config)
-  console.log(response.data)
-
-  return response.data
+ try{
+   const config : AxiosRequestConfig = {
+     url:`${this.apiUrl}/job/${id}`,
+     method:"GET"
+   }
+   const response = await this.httpService.axiosRef.request(config)
+   this.logger.log('job response successfully.');
+   return response.data
+ }catch (error){
+   this.logger.error('Error getting job with id '+id);
+ }
 }
 
 async getJobStatus(id:string){
-  const config : AxiosRequestConfig = {
-    url:`${this.apiUrl}/job/status/${id}`,
-    method:"GET"
+  try{
+    const config : AxiosRequestConfig = {
+      url:`${this.apiUrl}/job/status/${id}`,
+      method:"GET"
+    }
+    const response = await this.httpService.axiosRef.request(config)
+    this.logger.log('job status fetched successfully.');
+    return response.data
+  }catch(error){
+    this.logger.error('Error getting job status');
   }
-  const response = await this.httpService.axiosRef.request(config)
-  return response.data
 }
 
 async getAllJobs(){
-  const config : AxiosRequestConfig = {
-    url:`${this.apiUrl}/job`,
-    method:"GET"
-  }
-  const response = await this.httpService.axiosRef.request(config)
-  return response.data
+  try{
+    const config : AxiosRequestConfig = {
+      url:`${this.apiUrl}/job`,
+      method:"GET"
+    }
+    const response = await this.httpService.axiosRef.request(config)
+    this.logger.log('job response successful');
+    return response.data
 
+  }catch (error){
+    this.logger.error('Error getting all jobs');
+  }
 }
 
 

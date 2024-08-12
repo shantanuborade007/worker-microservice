@@ -9,7 +9,8 @@ import {
   UploadedFile,
   Req,
   Param,
-  Get
+  Get,
+  Logger,
 } from '@nestjs/common';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
@@ -18,7 +19,14 @@ import { Response } from 'express';
 import { JwtAuthGuard } from './guard/jwt-auth-guard';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 const multerOptions: MulterOptions = {
   dest: 'tmp/', // Set the destination for temporary uploaded files
@@ -35,6 +43,7 @@ const multerOptions: MulterOptions = {
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+  logger: Logger = new Logger('AuthController');
 
   @Post('auth/signup')
   @ApiOperation({ summary: 'User signup' })
@@ -42,6 +51,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiBody({ type: SignupDto })
   async signup(@Body() signupDto: SignupDto) {
+    this.logger.log('signup initialized..');
     const user = await this.authService.signup(signupDto);
     return user;
   }
@@ -70,10 +80,14 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'Job successfully created.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiBearerAuth()
-  async createJobWithImage(@UploadedFile() image: Express.Multer.File, @Body('status') status: string, @Req() req: any) {
+  async createJobWithImage(
+    @UploadedFile() image: Express.Multer.File,
+    @Body('status') status: string,
+    @Req() req: any,
+  ) {
     const user = req.user;
     const result = await this.authService.processImage(image);
-    console.log(status);
+    this.logger.log('job creation initilized...');
     const job = await this.authService.createJob(result, status, user);
     return job;
   }
@@ -103,7 +117,8 @@ export class AuthController {
   }
 
   @Get('job')
-  async getAllJobs(){
+  async getAllJobs() {
     return this.authService.getAllJobs();
   }
+
 }

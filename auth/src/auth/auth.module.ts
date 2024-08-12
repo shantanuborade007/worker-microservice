@@ -11,7 +11,7 @@ import { HttpModule } from '@nestjs/axios';
 @Module({
   imports: [
     HttpModule.register({
-      timeout:5000,
+      timeout: 5000,
       maxRedirects:5
     }),
     TypeOrmModule.forFeature([User]),

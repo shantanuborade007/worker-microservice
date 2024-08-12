@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8883662-86ea-42bd-8892-c3d7ecc0b617" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/liquibase/changelog/release_1.0.0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/auth/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/auth/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/app.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/app.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/auth/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/auth/auth.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/auth/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/auth/entities/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/auth/entities/user.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/auth/guard/jwt-auth-guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/auth/guard/jwt-auth-guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blob/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/blob/src/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/liquibase/changelog/01-create-user-table.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/liquibase/changelog/02-create-job-table.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/liquibase/changelog/03-create-blob-table.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/liquibase/changelog/db.changelog-master.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/liquibase/liquibase.properties" beforeDir="false" afterPath="$PROJECT_DIR$/liquibase/liquibase.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/worker1/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/worker1/src/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,29 +34,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2jx54wD5s0xMhspt0X4GY2bW6Us" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "macos",
-    "last_opened_file_path": "/Users/shantanuborade/Downloads/worker-microservice-master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.local.executor": "Debug",
-    "ts.external.directory.path": "/Users/shantanuborade/Downloads/worker-microservice-master/worker1/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;macos&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/shantanuborade/Downloads/worker-microservice-master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.local.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/shantanuborade/Downloads/worker-microservice-master/worker1/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="local" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/auth/package.json" />
@@ -66,46 +85,20 @@
       <option name="presentableId" value="Default" />
       <updated>1722315700891</updated>
       <workItem from="1722315702182" duration="389000" />
+      <workItem from="1722416272860" duration="541000" />
+      <workItem from="1722504121220" duration="3280000" />
+      <workItem from="1722834627132" duration="1221000" />
+      <workItem from="1722857212868" duration="448000" />
+      <workItem from="1722857675965" duration="255000" />
+      <workItem from="1723005841758" duration="1940000" />
+      <workItem from="1723116582032" duration="678000" />
+      <workItem from="1723183682278" duration="3037000" />
+      <workItem from="1723438450334" duration="1136000" />
+      <workItem from="1723442119930" duration="5785000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/auth/src/auth/auth.controller.ts</url>
-          <line>38</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/auth/src/auth/auth.controller.ts</url>
-          <line>44</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/auth/src/auth/auth.service.ts</url>
-          <line>37</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/auth/src/auth/auth.service.ts</url>
-          <line>50</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/auth/src/auth/auth.controller.ts</url>
-          <line>45</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
